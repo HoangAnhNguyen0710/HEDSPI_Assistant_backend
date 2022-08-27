@@ -3,7 +3,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Request, Response } from 'express';
-import { from, Observable } from 'rxjs';
 import { Repository } from 'typeorm';
 import { Question } from './question.entity';
 
@@ -28,7 +27,7 @@ export class QuestionService {
         const pagination = await this.QuestionRepository.find();
         if(pagination !== null){
             if(page_num * num_per_page > pagination.length){
-                const List = pagination.slice((page_num - 1) * num_per_page, pagination.length - 1)
+                const List = pagination.slice((page_num - 1) * num_per_page, pagination.length)
                 res.status(200).send(List);
             }
             else{

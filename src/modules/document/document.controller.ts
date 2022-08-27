@@ -11,4 +11,14 @@ export class DocumentController {
   create(@Body() document: Document, @Req() req: Request, @Res() res: Response){
       return this.DocumentService.createDocument(document, req, res);
   }
+
+  @Get('')
+  getDocs(@Query() queryList, @Req() req: Request, @Res() res: Response ){
+      return this.DocumentService.findperPage(queryList.type, queryList.page_num, queryList.max_items_per_page, res);
+  }
+
+  @Get('/all')
+  getNumofDocs(@Query() queryList){
+    return this.DocumentService.findAllNum(queryList.type);
+  }
 }

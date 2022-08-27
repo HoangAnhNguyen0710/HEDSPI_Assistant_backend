@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { BaseEntity } from "src/common/abstract.type";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, OneToOne } from "typeorm";
+import { Document } from "../document/document.entity";
 
 @Entity('subject')
 export class Subject extends BaseEntity{
@@ -22,5 +23,7 @@ export class Subject extends BaseEntity{
    @Column({type: 'text', nullable:true})
    note:string;
 
+   @OneToOne((type) => Document, (document) => document.subject)
+   document: Document;
 }
 

@@ -1,6 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { BaseEntity } from "src/common/abstract.type";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, OneToOne } from "typeorm";
+import { Document } from "../document/document.entity";
+import { Question } from "../question/question.entity";
+import { Review } from "../review/review.entity";
 
 @Entity('user')
 export class User extends BaseEntity{
@@ -24,5 +27,14 @@ export class User extends BaseEntity{
 
    @Column({type: 'text', nullable:false, default: "user"})
    role:string;
+
+   @OneToOne(() => Document, (document) => document.author)
+   document: Document;
+
+   @OneToOne(() => Question, (question) => question.author)
+   question: Question;
+
+   @OneToOne(() => Review, (review) => review.author)
+   review: Review;
 }
 

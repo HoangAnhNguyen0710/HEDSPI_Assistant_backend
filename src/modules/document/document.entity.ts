@@ -1,34 +1,16 @@
 /* eslint-disable prettier/prettier */
 import { BaseEntity } from "src/common/abstract.type";
-import { Column, Entity } from "typeorm";
-// title: "",
-// subject_code: "",
-// subject_name: "",
-// program: "",
-// author: "Nguyen Hoang Anh",
-// lecturer: "",
-// description: "",
-// semester: 1,
-// type: "",
-// likes: 0,
-// views: 0,
-// rating: 0,
+import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { Subject } from "../subject/subject.entity";
+import { User } from "../user/user.entity";
+
 @Entity('document')
 export class Document extends BaseEntity{
    @Column({type: 'text', nullable:true})
    title:string;
 
    @Column({type: 'varchar', length: 100, nullable:false})
-   subject_code: string;
-
-   @Column({type: 'varchar', length: 100, nullable:false})
-   subject_name: string;
-
-   @Column({type: 'varchar', length: 100, nullable:false})
    program: string;
-
-   @Column({type: 'varchar', length: 50, nullable:false})
-   author: string;
 
    @Column({type: 'varchar', length: 100, nullable:false})
    lecturer: string;
@@ -39,7 +21,7 @@ export class Document extends BaseEntity{
    @Column({type: 'text', nullable:true})
    description:string;
 
-   @Column({type: 'text', nullable:true})
+   @Column({type: 'text', nullable:false})
    type:string;
 
    @Column({type: 'int', nullable:false, default: 0})
@@ -53,5 +35,13 @@ export class Document extends BaseEntity{
 
    @Column({type: 'int', nullable:false, default: 0})
    RatingNum:number;
+ 
+   @OneToOne(() => Subject, (subject) => subject.document, { cascade: true })
+   @JoinColumn()
+   subject: Subject
+
+   @OneToOne(() => User, (user) => user.document, { cascade: true })
+   @JoinColumn()
+   author: User
 }
 

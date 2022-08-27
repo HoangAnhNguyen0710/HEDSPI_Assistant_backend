@@ -8,9 +8,10 @@ import { CommentModule } from './modules/comment/comment.module';
 import { SubjectModule } from './modules/subject/subject.module';
 import { DocumentModule } from './modules/document/document.module';
 import { QuestionModule } from './modules/question/question.module';
+import { ReviewModule } from './modules/review/review.module';
 require('dotenv').config();
 @Module({
-  imports: [TypeOrmModule.forRoot(typeormConfig), UserModule, CommentModule, SubjectModule, DocumentModule, QuestionModule],
+  imports: [TypeOrmModule.forRoot(typeormConfig), UserModule, CommentModule, SubjectModule, DocumentModule, QuestionModule, ReviewModule],
   controllers: [],
   providers: [],
 })
