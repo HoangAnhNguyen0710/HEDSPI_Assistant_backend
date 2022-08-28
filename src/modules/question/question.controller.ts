@@ -20,6 +20,6 @@ export class QuestionController {
 
     @Get('')
     getQuestions(@Query() queryList, @Req() req: Request, @Res() res: Response ){
-        return this.questionService.findperPage(queryList.page_num, queryList.max_items_per_page, res);
+        return this.questionService.findperPage(queryList.page_num, queryList.max_items_per_page, res, queryList.sortBy);
     }
 }

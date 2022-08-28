@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Request, Response } from 'express';
@@ -11,13 +12,38 @@ export class ReviewService {
     private readonly ReviewRepository: Repository<Review>,
   ) {}
 
-  async findAllNum() {
-    const All = await this.ReviewRepository.find();
-    if (All !== null) return All.length;
+  async findAllNum(type) {
+    let All = null;
+        if(type !== "all"){
+            All = await this.ReviewRepository.find({
+                where:{ 
+                    type: type, 
+                }
+            });
+        }
+        else All = await this.ReviewRepository.find();
+
+        if(All !== null)
+        return All.length;
   }
 
-  async findperPage(page_num: number, num_per_page: number, res: Response) {
-    const pagination = await this.ReviewRepository.find();
+  async findperPage(type: string, page_num: number, num_per_page: number, res: Response) {
+    let pagination = null;
+        if(type === "all"){
+            pagination = await this.ReviewRepository.find({relations: {
+                author: true,
+            },});
+        }
+        else {
+            pagination = await this.ReviewRepository.find({
+                where:{ 
+                    type: type, 
+                },
+                relations: {
+                    author: true,
+                },
+            });
+        }
     if (pagination !== null) {
       if (page_num * num_per_page > pagination.length) {
         const List = pagination.slice(

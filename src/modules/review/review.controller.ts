@@ -12,13 +12,14 @@ export class ReviewController {
         return this.reviewService.createQuestion(review, req, res);
         
     }
+    
     @Get('/all')
-    getAllQuestion(){
-        return this.reviewService.findAllNum();
+    getNumofDocs(@Query() queryList){
+      return this.reviewService.findAllNum(queryList.type);
     }
 
     @Get('')
     getQuestions(@Query() queryList, @Req() req: Request, @Res() res: Response ){
-        return this.reviewService.findperPage(queryList.page_num, queryList.max_items_per_page, res);
+        return this.reviewService.findperPage(queryList.type, queryList.page_num, queryList.max_items_per_page, res);
     }
 }

@@ -14,7 +14,7 @@ export class DocumentController {
 
   @Get('')
   getDocs(@Query() queryList, @Req() req: Request, @Res() res: Response ){
-      return this.DocumentService.findperPage(queryList.type, queryList.page_num, queryList.max_items_per_page, res);
+      return this.DocumentService.findperPage(queryList.type, queryList.page_num, queryList.max_items_per_page, res, queryList.sortBy);
   }
 
   @Get('/all')

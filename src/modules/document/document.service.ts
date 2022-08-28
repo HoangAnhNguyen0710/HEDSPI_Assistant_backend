@@ -2,7 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Response, Request } from 'express';
-import { DataSource, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Document } from './document.entity';
 
 @Injectable()
@@ -35,17 +35,32 @@ export class DocumentService {
         return All.length;
     }
 
-    async findperPage(type: string, page_num: number, num_per_page: number, res: Response){
+    async findperPage(type: string, page_num: number, num_per_page: number, res: Response, sort){
+        const sortBy = JSON.parse(sort);
         let pagination = null;
         if(type === "all"){
             pagination = await this.DocumentRepository.find({relations: {
                 subject: true,
-            },});
+                author: true,
+            },
+            order:{
+                createdAt: sortBy.createdAt,
+                likes: sortBy.likes, 
+            }
+        });
         }
         else {
             pagination = await this.DocumentRepository.find({
                 where:{ 
                     type: type, 
+                },
+                relations: {
+                    subject: true,
+                    author: true,
+                },
+                order:{
+                    createdAt: sortBy.createdAt,
+                    likes: sortBy.likes, 
                 }
             });
         }

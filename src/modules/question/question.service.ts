@@ -21,8 +21,14 @@ export class QuestionService {
     if (All !== null) return All.length;
   }
 
-  async findperPage(page_num: number, num_per_page: number, res: Response) {
-    const pagination = await this.QuestionRepository.find();
+  async findperPage(page_num: number, num_per_page: number, res: Response, sort) {
+    const sortBy = JSON.parse(sort);
+    const pagination = await this.QuestionRepository.find({
+      order:{
+        createdAt: sortBy.createdAt,
+        likes: sortBy.likes, 
+      }
+    });
     if (pagination !== null) {
       if (page_num * num_per_page > pagination.length) {
         const List = pagination.slice(
