@@ -17,7 +17,7 @@ export class UserService {
         return from(this.UserRepository.find());
     }
     // findOneById(id: number, req: Request, res: Response): Promise<User> {
-    async findOneById(id: number, req: Request, res: Response) {
+    async findOne(id: number, req: Request, res: Response) {
         const find = await this.UserRepository.findOneBy({ id: id });
         if(find != null){
             res.status(200).send(find);
@@ -26,18 +26,18 @@ export class UserService {
     }
     
     async createUser(user: User, req: Request, res: Response){
-        const checker = await this.UserRepository.findOne({
-            where:{
-                email: user.email,
-            }
-        })
-        if(checker === null){
+        // const checker = await this.UserRepository.findOne({
+        //     where:{
+        //         email: user.email,
+        //     }
+        // })
+        // if(checker === null){
             this.UserRepository.save(user);
             res.status(201).send(user);
         }
-        else {
-            res.status(400).send("user đã tồn tại");
+        // else {
+        //     res.status(400).send("user đã tồn tại");
 
-        };
-    }
+        // };
+    // }
 }

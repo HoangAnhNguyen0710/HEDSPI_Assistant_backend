@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { BaseEntity } from "src/common/abstract.type";
-import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
+import { Comment } from "../comment/comment.entity";
 import { User } from "../user/user.entity";
 
 @Entity('question')
@@ -32,8 +33,10 @@ export class Question extends BaseEntity{
    @Column({type: 'int', nullable:false, default: 0})
    CommentNum:number;
 
-   @OneToOne(() => User, (user) => user.question)
-   @JoinColumn()
+   @ManyToOne(() => User, (user) => user.question)
    author: User;
+
+   @OneToMany(() => Comment, (comment) => comment.question)
+   comments: Comment[];
 }
 

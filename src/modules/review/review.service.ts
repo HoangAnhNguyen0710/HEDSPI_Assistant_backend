@@ -5,6 +5,7 @@ import { Request, Response } from 'express';
 import { Repository } from 'typeorm';
 import { Review } from './review.entity';
 
+
 @Injectable()
 export class ReviewService {
   constructor(
@@ -21,7 +22,13 @@ export class ReviewService {
                 }
             });
         }
-        else All = await this.ReviewRepository.find();
+        else All = await this.ReviewRepository.find(
+          {
+            order:{
+              createdAt: "DESC",
+            }
+          }
+        );
 
         if(All !== null)
         return All.length;
@@ -32,6 +39,7 @@ export class ReviewService {
         if(type === "all"){
             pagination = await this.ReviewRepository.find({relations: {
                 author: true,
+                comments: true
             },});
         }
         else {
@@ -41,6 +49,7 @@ export class ReviewService {
                 },
                 relations: {
                     author: true,
+                    comments: true
                 },
             });
         }
@@ -60,18 +69,26 @@ export class ReviewService {
       }
     } else res.status(400);
   }
-  // findOneById(id: number, req: Request, res: Response): Promise<User> {
-  // async findOne(subject_code: string, req: Request, res: Response) {
-  //     const find = await this.ReviewRepository.findOne({
-  //         where:{
-  //             subject_code: subject_code,
-  //         }
-  //     });
-  //     if(find != null){
-  //         res.status(200).send(find);
-  //     }
-  //     else res.status(400).send("Môn học không tồn tại");
-  // }
+
+  async getAllComments(id: number, req: Request, res: Response) {
+      const find = await this.ReviewRepository.find({
+          where:{
+              id: id,
+          },
+          relations:{
+            author: true,
+            comments:{
+              user: true
+            }
+          }
+     
+      });
+      if(find != null){
+          res.status(200).send(find[0].comments);
+      }
+      else res.status(400).send("Review không tồn tại");
+  }
+  
   async createQuestion(review: Review, req: Request, res: Response) {
     this.ReviewRepository.save(review);
     res.status(201).send(review);

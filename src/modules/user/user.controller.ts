@@ -14,7 +14,7 @@ export class UserController {
 
     @Get(':id')
     getUser(@Param('id', ParseIntPipe) id:number, @Req() req: Request, @Res() res: Response ){
-        return this.userService.findOneById(id, req, res);
+        return this.userService.findOne(id, req, res);
     }
 
     @Post()

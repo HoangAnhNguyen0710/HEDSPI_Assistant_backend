@@ -23,7 +23,7 @@ export class Subject extends BaseEntity{
    @Column({type: 'text', nullable:true})
    note:string;
 
-   @OneToOne((type) => Document, (document) => document.subject)
+   @OneToOne(() => Document, (document) => document.subject)
    document: Document;
 }
 

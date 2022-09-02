@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { BaseEntity } from "src/common/abstract.type";
-import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
+import { Comment } from "../comment/comment.entity";
 import { Subject } from "../subject/subject.entity";
 import { User } from "../user/user.entity";
 
@@ -40,8 +41,10 @@ export class Document extends BaseEntity{
    @JoinColumn()
    subject: Subject
 
-   @OneToOne(() => User, (user) => user.document, { cascade: true })
-   @JoinColumn()
+   @ManyToOne(() => User, (user) => user.document, { cascade: true })
    author: User
+
+   @OneToMany(() => Comment, (comment) => comment.document)
+   comments: Comment[];
 }
 

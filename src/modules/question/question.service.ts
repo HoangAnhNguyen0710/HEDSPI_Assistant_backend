@@ -61,4 +61,22 @@ export class QuestionService {
     this.QuestionRepository.save(question);
     res.status(201).send(question);
   }
+
+  async getAllComments(id: number, req: Request, res: Response) {
+    const find = await this.QuestionRepository.find({
+        where:{
+            id: id,
+        },
+        relations:{
+          author: true,
+          comments:{
+            user: true
+          }
+        }
+    });
+    if(find != null){
+        res.status(200).send(find[0].comments);
+    }
+    else res.status(400).send("Review không tồn tại");
+}
 }

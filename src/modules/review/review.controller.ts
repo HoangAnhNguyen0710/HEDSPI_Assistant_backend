@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Post, Get, Body, Query, Req, Res } from '@nestjs/common';
+import { Controller, Post, Get, Body, Query, Req, Res, Param } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { Review } from './review.entity';
 import { ReviewService } from './review.service';
@@ -22,4 +22,11 @@ export class ReviewController {
     getQuestions(@Query() queryList, @Req() req: Request, @Res() res: Response ){
         return this.reviewService.findperPage(queryList.type, queryList.page_num, queryList.max_items_per_page, res);
     }
+
+    @Get('/:id')
+    getComments(@Param() param, @Req() req: Request, @Res() res: Response ){
+        return this.reviewService.getAllComments(parseInt(param.id), req, res);
+    }
+
+
 }
