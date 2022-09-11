@@ -2,11 +2,13 @@
 import { BaseEntity } from "src/common/abstract.type";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
 import { Comment } from "../comment/comment.entity";
+import { Like } from "../like/like.entity";
 import { Subject } from "../subject/subject.entity";
 import { User } from "../user/user.entity";
 
 @Entity('document')
 export class Document extends BaseEntity{
+
    @Column({type: 'text', nullable:true})
    title:string;
 
@@ -26,9 +28,6 @@ export class Document extends BaseEntity{
    type:string;
 
    @Column({type: 'int', nullable:false, default: 0})
-   likes:number;
-
-   @Column({type: 'int', nullable:false, default: 0})
    views:number;
 
    @Column({type: 'int', nullable:false, default: 0})
@@ -37,8 +36,7 @@ export class Document extends BaseEntity{
    @Column({type: 'int', nullable:false, default: 0})
    RatingNum:number;
  
-   @OneToOne(() => Subject, (subject) => subject.document, { cascade: true })
-   @JoinColumn()
+   @ManyToOne(() => Subject, (subject) => subject.document, { cascade: true })
    subject: Subject
 
    @ManyToOne(() => User, (user) => user.document, { cascade: true })
@@ -46,5 +44,8 @@ export class Document extends BaseEntity{
 
    @OneToMany(() => Comment, (comment) => comment.document)
    comments: Comment[];
+
+   @OneToMany(() => Like, (like) => like.document)
+   likes: Like[];
 }
 

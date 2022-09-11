@@ -10,9 +10,10 @@ import { DocumentModule } from './modules/document/document.module';
 import { QuestionModule } from './modules/question/question.module';
 import { ReviewModule } from './modules/review/review.module';
 import { AuthModule } from './auth/auth.module';
+import { LikeModule } from './modules/like/like.module';
 require('dotenv').config();
 @Module({
-  imports: [TypeOrmModule.forRoot(typeormConfig), UserModule, CommentModule, SubjectModule, DocumentModule, QuestionModule, ReviewModule, AuthModule],
+  imports: [TypeOrmModule.forRoot(typeormConfig), UserModule, CommentModule, SubjectModule, DocumentModule, QuestionModule, ReviewModule, AuthModule, LikeModule],
   controllers: [],
   providers: [],
 })

@@ -9,7 +9,7 @@ export class ReviewController {
     constructor(private reviewService: ReviewService) {}
     @Post()
     create(@Body() review: Review, @Req() req: Request, @Res() res: Response){
-        return this.reviewService.createQuestion(review, req, res);
+        return this.reviewService.createReview(review, req, res);
         
     }
     

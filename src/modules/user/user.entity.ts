@@ -3,6 +3,7 @@ import { BaseEntity } from "src/common/abstract.type";
 import { Column, Entity, OneToMany } from "typeorm";
 import { Comment } from "../comment/comment.entity";
 import { Document } from "../document/document.entity";
+import { Like } from "../like/like.entity";
 import { Question } from "../question/question.entity";
 import { Review } from "../review/review.entity";
 
@@ -34,5 +35,8 @@ export class User extends BaseEntity{
 
    @OneToMany(() => Comment, (comment) => comment.user)
    comments: Comment[];
+
+   @OneToMany(() => Like, (like) => like.user)
+   likes: Like[];
 }
 

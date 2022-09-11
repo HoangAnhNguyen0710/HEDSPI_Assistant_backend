@@ -13,8 +13,8 @@ export class UserController {
     }
 
     @Get(':id')
-    getUser(@Param('id', ParseIntPipe) id:number, @Req() req: Request, @Res() res: Response ){
-        return this.userService.findOne(id, req, res);
+    getUser(@Param() param, @Req() req: Request, @Res() res: Response ){
+        return this.userService.findOne(param.id, req, res);
     }
 
     @Post()

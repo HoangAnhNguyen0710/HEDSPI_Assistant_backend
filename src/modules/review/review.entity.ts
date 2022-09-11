@@ -2,6 +2,7 @@
 import { BaseEntity } from "src/common/abstract.type";
 import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
 import { Comment } from "../comment/comment.entity";
+import { Like } from "../like/like.entity";
 import { User } from "../user/user.entity";
 
 @Entity('review')
@@ -17,9 +18,6 @@ export class Review extends BaseEntity{
  
     @Column({type: 'text', nullable:true})
     type:string;
- 
-    @Column({type: 'int', nullable:false, default: 0})
-    likes:number;
  
     @Column({type: 'int', nullable:false, default: 0})
     views:number;
@@ -38,5 +36,8 @@ export class Review extends BaseEntity{
 
     @OneToMany(() => Comment, (comment) => comment.review)
     comments: Comment[];
+
+    @OneToMany(() => Like, (like) => like.review)
+    likes: Like[];
 }
 

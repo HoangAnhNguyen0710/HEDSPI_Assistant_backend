@@ -26,7 +26,13 @@ export class QuestionService {
     const pagination = await this.QuestionRepository.find({
       order:{
         createdAt: sortBy.createdAt,
-        likes: sortBy.likes, 
+        // cần fix
+        // likes: sortBy.likes, 
+      },
+      relations: {
+        author: true,
+        comments: true,
+        likes: true
       }
     });
     if (pagination !== null) {

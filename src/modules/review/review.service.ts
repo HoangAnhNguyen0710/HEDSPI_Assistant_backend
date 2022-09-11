@@ -39,8 +39,13 @@ export class ReviewService {
         if(type === "all"){
             pagination = await this.ReviewRepository.find({relations: {
                 author: true,
-                comments: true
-            },});
+                comments: true, 
+                likes: true
+            },
+            order:{
+              createdAt: "DESC",
+            }
+          });
         }
         else {
             pagination = await this.ReviewRepository.find({
@@ -49,7 +54,8 @@ export class ReviewService {
                 },
                 relations: {
                     author: true,
-                    comments: true
+                    comments: true,
+                    likes: true
                 },
             });
         }
@@ -81,15 +87,33 @@ export class ReviewService {
               user: true
             }
           }
-     
       });
       if(find != null){
           res.status(200).send(find[0].comments);
       }
       else res.status(400).send("Review không tồn tại");
   }
+
+  async getAllLikes(id: number, req: Request, res: Response) {
+    const find = await this.ReviewRepository.find({
+        where:{
+            id: id,
+        },
+        relations:{
+          author: true,
+          likes:{
+            user: true
+          }
+        }
+   
+    });
+    if(find != null){
+        res.status(200).send(find[0].comments);
+    }
+    else res.status(400).send("Review không tồn tại");
+}
   
-  async createQuestion(review: Review, req: Request, res: Response) {
+  async createReview(review: Review, req: Request, res: Response) {
     this.ReviewRepository.save(review);
     res.status(201).send(review);
   }

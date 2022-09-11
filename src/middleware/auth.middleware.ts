@@ -1,22 +1,23 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Body, Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken'
+import { OAuth2Client } from 'google-auth-library';
+
+
+const client = new OAuth2Client(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+);
+
 @Injectable()
-export class LoggerMiddleware implements NestMiddleware {
-  use(req: Request, res: Response, next: NextFunction) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader.split(' ')[1];
-    if(!token) return res.status(401).send("Error ! Unauthorized");
-    try {
-    const decoded =  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-    // console.log(decoded);
-    next();
-    } catch (error) {
-        console.log(error)
-        res.sendStatus(403)
-    }
-    console.log(req.headers);
+export class AuthMiddleware implements NestMiddleware {
+  async use (@Body('token') token, res: Response, next: NextFunction) {
+    // const ticket = await client.verifyIdToken({
+    //   idToken: token,
+    //   audience: process.env.GOOGLE_CLIENT_ID,
+    // }).catch((err)=> console.log(err));
+    // console.log("ticket:" + ticket);
+    // client.forceRefreshOnFailure = true;
     next();
   }
 }

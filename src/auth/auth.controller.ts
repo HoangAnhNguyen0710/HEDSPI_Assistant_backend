@@ -21,7 +21,7 @@ export class AuthController {
         idToken: token,
         audience: process.env.GOOGLE_CLIENT_ID,
       });
-  
+      client.forceRefreshOnFailure = true;
       const payload = ticket.getPayload();
       const data = await this.authService.login({
         email: payload.email,
