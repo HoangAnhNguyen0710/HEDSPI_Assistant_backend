@@ -29,5 +29,6 @@ async function bootstrap() {
   // }
   app.enableCors();
   await app.listen(5000);
+  console.log(process.env);
 }
 bootstrap();
