@@ -4,9 +4,6 @@
   "description": "",
   "author": "",
   "private": false,
-  "engines": {
-    "node": "18.x"
-  },
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
