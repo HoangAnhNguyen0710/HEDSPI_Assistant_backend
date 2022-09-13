@@ -2,9 +2,6 @@
   "name": "code_jav_backend",
   "version": "0.0.1",
   "description": "",
-  "engines": {
-    "node": "18.x"
-  },
   "author": "",
   "private": true,
   "license": "UNLICENSED",
