@@ -1,9 +1,9 @@
 {
   "name": "code_jav_backend",
   "version": "0.0.1",
-  "description": "<p align=\"center\">   <a href=\"http://nestjs.com/\" target=\"blank\"><img src=\"https://nestjs.com/img/logo-small.svg\" width=\"200\" alt=\"Nest Logo\" /></a> </p>",
+  "description": "",
   "author": "",
-  "private": false,
+  "private": true,
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -18,8 +18,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
-    "start:prod": "node dist/main.js"
+    "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -82,17 +81,5 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  },
-  "main": ".eslintrc.js",
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/HoangAnhNguyen0710/HEDSPI_Assistant_backend.git"
-  },
-  "bugs": {
-    "url": "https://github.com/HoangAnhNguyen0710/HEDSPI_Assistant_backend/issues"
-  },
-  "homepage": "https://github.com/HoangAnhNguyen0710/HEDSPI_Assistant_backend#readme"
+  }
 }
