@@ -12,7 +12,7 @@ export class CommentService {
   ) {}
 
   async createComment(comment: Comment, req: Request, res: Response) {
-    this.CommentRepository.save(comment);
+    this.CommentRepository.insert(comment);
     res.status(201).send(comment);
   }
 }

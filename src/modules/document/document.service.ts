@@ -150,7 +150,7 @@ export class DocumentService {
     //   .select('MAX(document.id)', 'max')
     //   .getRawOne();
     // document.id = query.max + 1;
-    const savedocs = await this.DocumentRepository.save(document);
+    const savedocs = await this.DocumentRepository.insert(document);
     res.status(201).send(savedocs);
   }
 

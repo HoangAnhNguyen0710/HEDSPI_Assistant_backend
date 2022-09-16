@@ -64,7 +64,7 @@ export class QuestionService {
   //     else res.status(400).send("Môn học không tồn tại");
   // }
   async createQuestion(question: Question, req: Request, res: Response) {
-    this.QuestionRepository.save(question);
+    this.QuestionRepository.insert(question);
     res.status(201).send(question);
   }
 

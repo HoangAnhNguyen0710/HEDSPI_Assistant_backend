@@ -31,7 +31,7 @@ export class LikeService {
       },
     });
     if (check === null) {
-      const doneLike = await this.LikeRepository.save({
+      const doneLike = await this.LikeRepository.insert({
         user: like_author,
         [like_article_type]: like_article,
       });
