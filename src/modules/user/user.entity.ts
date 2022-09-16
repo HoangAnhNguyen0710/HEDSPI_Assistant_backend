@@ -24,13 +24,13 @@ export class User extends BaseEntity{
    @Column({type: 'text', nullable:false, default: "user"})
    role:string;
 
-   @OneToMany(() => Document, (document) => document.author, {cascade: true})
+   @OneToMany(() => Document, (document) => document.author)
    document: Document[];
 
-   @OneToMany(() => Question, (question) => question.author, {cascade: true})
+   @OneToMany(() => Question, (question) => question.author)
    question: Question[];
 
-   @OneToMany(() => Review, (review) => review.author, {cascade: true})
+   @OneToMany(() => Review, (review) => review.author)
    review: Review[];
 
    @OneToMany(() => Comment, (comment) => comment.user)
