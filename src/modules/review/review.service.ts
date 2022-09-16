@@ -3,16 +3,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Request, Response } from 'express';
 import { Repository } from 'typeorm';
-import { User } from '../user/user.entity';
 import { Review } from './review.entity';
 
 
 @Injectable()
 export class ReviewService {
   constructor(
-    @InjectRepository(Review, User)
+    @InjectRepository(Review)
     private readonly ReviewRepository: Repository<Review>,
-    private readonly UserRepository: Repository<User>,
   ) {}
 
   async findAllNum(type) {
@@ -116,14 +114,8 @@ export class ReviewService {
 }
   
   async createReview(review: Review, req: Request, res: Response) {
-    const user = await this.UserRepository.findOneBy({id: review.author.id});
-    if(user){
-      const saving = await this.ReviewRepository.save(review);
-      user.review = [saving, ...user.review];
-      await this.UserRepository.save(user);
-      console.log(saving)
-      res.status(201).send(saving);
-    }
-    else res.status(400);
+    const saving = await this.ReviewRepository.create(review);
+    console.log(saving)
+    res.status(201).send(saving);
   }
 }
