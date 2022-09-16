@@ -33,10 +33,10 @@ export class User extends BaseEntity{
    @OneToMany(() => Review, (review) => review.author, {cascade: true})
    review: Review[];
 
-   @OneToMany(() => Comment, (comment) => comment.user, {cascade: true})
+   @OneToMany(() => Comment, (comment) => comment.user)
    comments: Comment[];
 
-   @OneToMany(() => Like, (like) => like.user, {cascade: true})
+   @OneToMany(() => Like, (like) => like.user)
    likes: Like[];
 }
 
