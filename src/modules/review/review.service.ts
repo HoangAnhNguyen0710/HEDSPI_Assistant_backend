@@ -114,7 +114,7 @@ export class ReviewService {
 }
   
   async createReview(review: Review, req: Request, res: Response) {
-    const saving = await this.ReviewRepository.create(review);
+    const saving = await this.ReviewRepository.insert(review);
     console.log(saving)
     res.status(201).send(saving);
   }
