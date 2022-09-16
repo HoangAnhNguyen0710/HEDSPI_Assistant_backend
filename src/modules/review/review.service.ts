@@ -10,7 +10,7 @@ import { Review } from './review.entity';
 @Injectable()
 export class ReviewService {
   constructor(
-    @InjectRepository(Review)
+    @InjectRepository(Review, User)
     private readonly ReviewRepository: Repository<Review>,
     private readonly UserRepository: Repository<User>,
   ) {}
