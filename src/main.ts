@@ -28,7 +28,7 @@ async function bootstrap() {
   //   origin: 'http://localhost:3000'
   // }
   app.enableCors();
-  await app.listen(5000);
+  await app.listen(process.env.PORT || 5000);
   console.log(process.env);
 }
 bootstrap();
